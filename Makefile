@@ -1,6 +1,6 @@
 imageName := aisxyz/k8s-demo
 
-.PHONY: image_build help
+.PHONY: help image_build image_push image_clean
 
 # Define common command sequences.
 define enable-quit-mode
@@ -34,7 +34,7 @@ image_push:            # Push target image to remote repository
 
 
 noneImages := $(shell docker image ls | grep '<none>' | sed -nE -e 's/\s+/:/gp' | cut -d: -f3)
-image_clean:           # Clean none image
+image_clean:           # Clean none images
 	@echo "clean none images $(noneImages)..."
 	-docker image rm ${noneImages}
 
