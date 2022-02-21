@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: ssd-monitor
+spec:
+  selector:
+    #matchExpressions:
+    #  - key: app
+    #    operator: Exists
+    matchLabels:
+      app: web-monitor
+  template:
+    metadata:
+      labels:
+        app: web-monitor
+    spec:
+      containers:
+        - name: monitor
+          image: aisxyz/k8s-demo
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+      nodeSelector:
+        disk: ssd

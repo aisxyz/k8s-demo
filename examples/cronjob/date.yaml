@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: batch-job-date
+spec:
+  schedule: "0,10,20,30,40,50 * * * *"
+  #schedule: "*/1 * * * *"
+  startingDeadlineSeconds: 15
+  jobTemplate:
+    spec:
+      parallelism: 2
+      template:
+        metadata:
+          labels:
+            app: periodic-date
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: cron-date
+              image: busybox
+              imagePullPolicy: IfNotPresent
+              command: ["/bin/sh", "-c", "date; sleep 30"]
