@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tutor
+  namespace: default
+  labels:
+    app: k8s-tutor
+spec:
+  containers:
+    - name: tutor-worker
+      image: aisxyz/k8s-demo
+      imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8080
+          name: http
